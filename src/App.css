@@ -112,3 +112,14 @@ a {
   text-decoration: none;
   text-transform: uppercase;
 }
+
+button {
+    display: inline;
+    background: #343a40;
+    color: #fff;
+    border: none;
+    padding: 8px 13px 10px 13px;
+    margin: 0 15px 0 0;
+    position: relative;
+    top: -2px;
+}
