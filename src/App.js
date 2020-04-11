@@ -5,6 +5,7 @@ import Header from "./components/Header"
 import Books from "./components/Books"
 import fire from "./Fire"
 import Login from "./components/Login"
+import Rss from "./components/Rss"
 
 class App extends React.Component {
 
@@ -41,6 +42,7 @@ class App extends React.Component {
 	    			<div>
 	    				<Header />
 	    				<Books />
+	    				<Rss />
 	    			</div>
 	    		) :
 	    		(
