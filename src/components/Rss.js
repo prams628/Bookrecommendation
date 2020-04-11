@@ -11,7 +11,7 @@ class Rss extends React.Component{
 		}
 	}
 
-	RssFetchData(){
+		RssFetchData(){
 		var request = new XMLHttpRequest()
 		var feed = document.getElementById("feed")
 		feed.innerHTML = ""
