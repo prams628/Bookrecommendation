@@ -1,5 +1,12 @@
 import React from "react"
 
+var sectionStyle = {
+  backgroundColor: "#343a40",
+  color: "white",
+  textDecoration: "none",
+  textTransform: 'uppercase',
+}
+
 const BookCard = (props) => {
 	return(
 		<div className="card">
@@ -7,7 +14,7 @@ const BookCard = (props) => {
 			<div className="description">
 				<h2>{props.title}</h2>
 				<h3>Authors: {props.authors}</h3>
-				<a href={props.link}>View Here</a>
+				<a style = { sectionStyle } href={props.link}>View Here</a>
 			</div>
 		</div>
 	)
