@@ -59,7 +59,7 @@ class Rss extends React.Component{
 
 	componentDidMount() {
 		this.obj.getNews();
-        setInterval(this.obj.getNews,7500);
+        setInterval(this.obj.getNews,1000);
   	}
 
 	render(){
