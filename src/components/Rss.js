@@ -1,5 +1,12 @@
 import React from "react"
 
+var sectionStyle = {
+	fontFamily: "Handlee",
+    color: "#4A1137",
+    fontSize: "25px"
+}
+
+
 class Rss extends React.Component{
 	constructor(){
 		super();
@@ -56,7 +63,7 @@ class Rss extends React.Component{
 
 	render(){
 		return (
-			<div id="feed"></div>
+			<div id="feed" style = { sectionStyle }></div>
 		)
 	}
 }

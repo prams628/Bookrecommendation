@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Handlee&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -114,4 +116,10 @@ button {
     margin: 0 15px 0 0;
     position: relative;
     top: -2px;
+}
+
+.rss {
+    font-family: Handlee;
+    color: #4A1137;
+
 }
