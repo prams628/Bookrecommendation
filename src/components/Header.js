@@ -5,6 +5,11 @@ import Recommendation from "./Recommendation"
 import Books from "./Books"
 import Rss from "./Rss"
 
+var styleSection = {
+	fontSize: "75px", 
+	fontFamily: "Bangers"
+}
+
 class Header extends React.Component{
 
 	constructor(props) {
@@ -22,7 +27,7 @@ class Header extends React.Component{
 					<nav className="navbar navbar-inverse">
 					  <div className="container-fluid">
 					    <div className="navbar-header">
-					      <a className="navbar-brand" href="#">Boogle</a>
+					      <a className="navbar-brand" style={styleSection} href="#">Boogle</a>
 					    </div>
 						    <ul className="nav navbar-nav navbar-right">
 						      <li><Link to="/recommendation"><span className="glyphicon glyphicon-book"></span> Recommendations</Link></li>
