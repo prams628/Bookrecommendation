@@ -29,8 +29,8 @@ class Rss extends React.Component{
 				if(this.request.readyState == 4 && this.request.status == 200 && this.obj.state.i < 10){
 					var myObj = JSON.parse(this.request.responseText)
 					var feed = document.getElementById("feed")
-					console.log(myObj.items[this.obj.state.i].title)
-					console.log(myObj.items[this.obj.state.i].link)
+					// console.log(myObj.items[this.obj.state.i].title)
+					// console.log(myObj.items[this.obj.state.i].link)
 
 	        		this.obj.state.name = myObj.items[this.obj.state.i].title
 	          		this.obj.state.url = myObj.items[this.obj.state.i].link

@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Image } from 'semantic-ui-react';
+import { Form, Feed, Input, Button, Image } from 'semantic-ui-react';
+
+const style = <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css'/>
 
 export const BookEntry = ()  => {
   const [title, setTitle] = useState(''); //  Empty String
-  const [outputURL, setOutputURL] = useState(""); //Empty String
+  const [outputURL1, setOutputURL1] = useState('');
+  const [outputURL2, setOutputURL2] = useState('');
+  const [outputURL3, setOutputURL3] = useState('');
+  const [outputURL4, setOutputURL4] = useState('');
+  const [outputURL5, setOutputURL5] = useState('');
+  var nameArr = [];
+
   return (
-  <div>
+  <div id="form">
     <Form>
       <Form.Field>
         <Input
@@ -28,16 +36,22 @@ export const BookEntry = ()  => {
             })
 
           if (response.ok) {
-            console.log("Response Worked! ");
-            console.log(JSON.stringify(response.url));
-            console.log(response);
-            setTitle("We found your favorite book!")
-            console.log(response);
+            var form = document.getElementById("form") 
+            // console.log("Response Worked! ");
+            // console.log(JSON.stringify(response.url));
+            // console.log(response);
             fetch("/novel_novel").then(response =>
               response.json().then(data => {
-                setOutputURL(data.image_url);
+              nameArr = data.original_title.split(";")
+
+              setOutputURL1(nameArr[0]);
+              setOutputURL2(nameArr[1]);
+              setOutputURL3(nameArr[2]);
+              setOutputURL4(nameArr[3]);
+              setOutputURL5(nameArr[4]);
+                  // console.log(outputURL)
               })
-            );
+            ); 
           }
           else {
             console.log("Title not found")
@@ -48,7 +62,26 @@ export const BookEntry = ()  => {
         Add</Button>
       </Form.Field>
     </Form>
-    <Image src={outputURL} size='small' />
+      <div>{style}
+        <Feed>
+          <Feed.Event>
+              <Feed.Content content={outputURL1} />
+          </Feed.Event>
+          <Feed.Event>
+              <Feed.Content content={outputURL2} />
+          </Feed.Event>
+          <Feed.Event>
+              <Feed.Content content={outputURL3} />
+          </Feed.Event>
+          <Feed.Event>
+              <Feed.Content content={outputURL4} />
+          </Feed.Event>
+          <Feed.Event>
+              <Feed.Content content={outputURL5} />
+          </Feed.Event>
+
+        </Feed>
+      </div>
   </div>
   );
 };
