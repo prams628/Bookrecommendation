@@ -3,6 +3,7 @@ import fire from "../Fire"
 import { BrowserRouter as Router, Link, Route } from "react-router-dom"
 import Recommendation from "./Recommendation"
 import Books from "./Books"
+import Rss from "./Rss"
 
 class Header extends React.Component{
 
@@ -24,14 +25,16 @@ class Header extends React.Component{
 					      <a className="navbar-brand" href="#">Boogle</a>
 					    </div>
 						    <ul className="nav navbar-nav navbar-right">
-						      <li><Link to="/recommendation"><a href="#"><span className="glyphicon glyphicon-book"></span> Recommendations</a></Link></li>
-						      <li><Link to="/books"><a href="#"><span className="glyphicon glyphicon-search"></span> Books</a></Link></li>
+						      <li><Link to="/recommendation"><span className="glyphicon glyphicon-book"></span> Recommendations</Link></li>
+						      <li><Link to="/books"><span className="glyphicon glyphicon-search"></span> Books</Link></li>
+						      <li><Link to="/news"><span className="glyphicon glyphicon-paperclip"></span> News</Link></li>
 						      <li><a href="#" onClick={this.logout}><span className="glyphicon glyphicon-log-out"></span> Log Out</a></li>
 						    </ul>
 					  </div>
 					</nav>
 				<Route exact path="/recommendation" component={ Recommendation }/>
 				<Route exact path="/books" component={ Books }/>
+				<Route exact path="/news" component={ Rss }/>
 			</Router>
 		)
 	}
