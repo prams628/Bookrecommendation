@@ -41,7 +41,7 @@ class Graph(object):
         else:
             return None
 
-    def _book2book(self, input_Book, N=3 , debug=False):
+    def book2book(self, input_Book, N=3 , debug=False):
         """ Sanity Checker:
         Developer Function to quickly get similar, unpopular books
         recommended that is not based on a User. Simply input a book,
@@ -64,7 +64,7 @@ class Graph(object):
             _rand_User = _reader_list[np.random.randint(_len_rl)]
             _list = [(book, book.popularity, rating) for book, rating in _rand_User.shelf
                     if rating > 4] #NB; No filtering on read books, as no input user.
-            _list = sorted(_list, key=_sort_tuple, reverse=False)
+            _list = sorted(_list, key=_sort_tuple)
             unpopular_book, popularity, rating = _list[0]
             out_recs.append(unpopular_book)
 
@@ -155,7 +155,7 @@ class Graph(object):
             as you really start to jump around the graph. Want more privacy? Enable more random jumps.
         """
         if debug:
-            print ("Method: GrabThreeBooks : Beginning :", input_User.user_id)
+            print ("Method: Grab{}Books : Beginning : {}".format(N, input_User.user_id))
 
         RareBooks = []
         counter = 0
@@ -175,8 +175,7 @@ class Graph(object):
             if len(RareBooks) == N:
                 return RareBooks
             # Increase the counter so that we don't get stuck in a loop
-            else:
-                counter+=1
+            counter += 1
         #Base case in case something goes wrong...
         return None
 
@@ -188,8 +187,9 @@ class User(object):
         self.author_list = [] # Authors read
 
 class Book(object):
-    def __init__(self, book_id, Author, ratings_5, popularity, image_url):
+    def __init__(self, book_id, original_title, Author, ratings_5, popularity, image_url):
         self.book_id = book_id
+        self.title = original_title
         self.author = Author
         self.author_id = Author.author_id
         self.ratings_5 = ratings_5 # Number of people that rated the book a 5
@@ -236,9 +236,9 @@ def BuildGraph():
     `uir` : user,item,rating data
     `books`: meta information about each of the items (# of ratings, Author, etc.)
     """
-    uir = pd.read_csv("api/data/goodbooks-10k-master/ratings.csv")
+    uir = pd.read_csv("data/goodbooks-10k-master/ratings.csv")
 
-    books = pd.read_csv("api/data/goodbooks-10k-master/books.csv")
+    books = pd.read_csv("data/goodbooks-10k-master/books.csv")
     books = books[(books["language_code"] == "eng") | (books["language_code"] == "en-US")]
     books["author_id"] = (books["authors"].astype("category")).cat.codes # Gives us an index
 
@@ -300,9 +300,9 @@ def BuildGraph():
 
     unique_books = uir[["book_id", "original_title", "author_id", "ratings_5", "popularity_ratings",
                         "image_url"]].drop_duplicates()
-    unique_books["Book"] = [Book(bid, author_dict[aid]["Author"], rat, pop, url) for bid, aid, rat, pop, url
+    unique_books["Book"] = [Book(bid, ot, author_dict[aid]["Author"], rat, pop, url) for bid, ot, aid, rat, pop, url
                             in unique_books[
-                                ["book_id", "author_id", "ratings_5", "popularity_ratings", "image_url"]].values]
+                                ["book_id", "original_title", "author_id", "ratings_5", "popularity_ratings", "image_url"]].values]
 
     # Now that we have our Book objects, let's build it into a dictionary
     _unique_books = unique_books.set_index("book_id", drop=True)

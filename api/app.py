@@ -18,11 +18,6 @@ ids = []
 titles = []
 seperator = ";"
 
-def converttostr(input_seq, seperator):
-    final_str = ""
-    final_str = seperator.join(input_seq)
-    return final_str
-
 @main.route('/input_book', methods=['POST'])
 def input_book():
     # We get a request from our React App
@@ -36,18 +31,13 @@ def input_book():
         _book_object = titles_dict[_book_title.lower()]["Book"]
         logger.debug(_book_object)
         # Grab the first set of entries, return it
-        book_list = BigGraph._book2book(_book_object, N=5)
+        book_list = BigGraph.book2book(_book_object, N=5)
 
         # Set the global url to be the large version of the input url
-        global output_URL, lis, seperator
-        output_URL = ""
-        ids = []
-        for book in book_list:
-            ids.append(book.book_id)
-        titles = []
-        for i in ids:
-            titles.append(books.loc[books['book_id'] == int(i), 'original_title'].iloc[0])
-        output_URL = converttostr(titles, seperator)
+        global output_URL, seperator
+        for i in book_list:
+            titles.append(i.title)
+        output_URL = ";".join(titles)
         # Return the image URL to be displayed on our app
         #    NB: POST does not support anything else.
         return "Done", 201
