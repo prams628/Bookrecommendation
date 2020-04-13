@@ -1,20 +1,37 @@
 import React from "react"
 
 var sectionStyle = {
-  backgroundColor: "#343a40",
+  backgroundColor: "#581845",
   color: "white",
+  fontSize: "15px",
+  fontFamily: "Aclonica",
   textDecoration: "none",
   textTransform: 'uppercase',
 }
 
+var link = {
+  color: "white",
+  textDecoration: 'none',
+  background: '#581845',
+  padding: '10px',
+  borderRadius: '5px',
+  display: 'inline-block',
+  border: 'none',
+  transition: "all 0.4s ease 0s",
+  fontFamily: "Acme",
+  paddingRight: "35px", 
+  paddingLeft: "35px",
+  fontSize: "20px"
+}
+
 const BookCard = (props) => {
 	return(
-		<div className="card">
+		<div style={{border: "4px solid #581845", color: "#581845", borderRadius: "5px"}}>
 			<img src={props.image} alt="" />
-			<div className="description">
-				<h2>{props.title}</h2>
-				<h3>Authors: {props.authors}</h3>
-				<a style = { sectionStyle } href={props.link}>View Here</a>
+			<div style={{ height: '240px', padding: '10px'}}>
+				<h3>{props.title}</h3>
+				<h4>Authors: {props.authors}</h4>
+				<a style = { link } href={props.link}>View Here</a>
 			</div>
 		</div>
 	)

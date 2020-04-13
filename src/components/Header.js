@@ -6,7 +6,13 @@ import Books from "./Books"
 
 var styleSection = {
 	fontSize: "75px", 
-	fontFamily: "Bangers"
+	fontFamily: "Bangers",
+	color: "#C70039"
+}
+
+var styleSection1 = { 
+	fontSize: "25px", 
+	fontFamily: "Acme",
 }
 
 class Header extends React.Component{
@@ -28,10 +34,10 @@ class Header extends React.Component{
 					    <div className="navbar-header">
 					      <a className="navbar-brand" style={styleSection} href="#">Boogle</a>
 					    </div>
-						    <ul className="nav navbar-nav navbar-right">
-						      <li><Link to="/recommendation"><span className="glyphicon glyphicon-book"></span> Recommendations</Link></li>
-						      <li><Link to="/books"><span className="glyphicon glyphicon-search"></span> Books</Link></li>
-						      <li><a href="#" onClick={this.logout}><span className="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+						    <ul style={styleSection1} className="nav navbar-nav navbar-right">
+						      <li><Link style={{color: "#C70039"}} to="/recommendation"><span className="glyphicon glyphicon-book"></span> Recommendations</Link></li>
+						      <li><Link style={{color: "#C70039"}} to="/books"><span className="glyphicon glyphicon-search"></span> Books</Link></li>
+						      <li><a style={{color: "#C70039"}} href="#" onClick={this.logout}><span className="glyphicon glyphicon-log-out"></span> Log Out</a></li>
 						    </ul>
 					  </div>
 					</nav>

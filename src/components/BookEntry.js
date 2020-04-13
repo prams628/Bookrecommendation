@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { Form, Feed, Input, Button, Image } from 'semantic-ui-react';
 
-const style = <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css'/>
+var input1 = {
+  marginTop: "100px",
+  marginLeft: "100px",
+  width: "800px",
+  border: "none",
+  fontFamily: "Acme",
+  fontSize: "25px"
+}
 
 export const BookEntry = ()  => {
   const [title, setTitle] = useState(''); //  Empty String
@@ -14,17 +20,17 @@ export const BookEntry = ()  => {
 
   return (
   <div id="form">
-    <Form>
-      <Form.Field>
-        <Input
-        placeholder="Enter one of your favorite book titles "
+    <form>
+        <input style={{marginTop: "100px", marginLeft: "100px", width: "800px", border: "none",
+         fontFamily: "Acme", fontSize: "25px", border: "none",borderBottom: "4px solid #581845"}}
+        placeholder="Enter one of your favorite books"
         value={title}
         onChange={event => setTitle(event.target.value)}
         />
-      </Form.Field>
-
-      <Form.Field>
-        <Button onClick= {async () => {
+        <button style={{color: "white",
+  textTransform: 'uppercase', textDecoration: 'none', background: '#581845', padding: '10px', borderRadius: '5px',
+  display: 'inline-block', border: 'none', transition: "all 0.4s ease 0s", fontFamily: "Acme", paddingRight: "35px", 
+  paddingLeft: "35px", fontSize: "25px", margin: "10px"}} onClick= {async () => {
           const book = {title};
           const response = await fetch("/input_book", {
             method: "POST",
@@ -59,28 +65,15 @@ export const BookEntry = ()  => {
           } 
         }
       }>
-        Add</Button>
-      </Form.Field>
-    </Form>
-      <div>{style}
-        <Feed>
-          <Feed.Event>
-              <Feed.Content content={outputURL1} />
-          </Feed.Event>
-          <Feed.Event>
-              <Feed.Content content={outputURL2} />
-          </Feed.Event>
-          <Feed.Event>
-              <Feed.Content content={outputURL3} />
-          </Feed.Event>
-          <Feed.Event>
-              <Feed.Content content={outputURL4} />
-          </Feed.Event>
-          <Feed.Event>
-              <Feed.Content content={outputURL5} />
-          </Feed.Event>
-
-        </Feed>
+        Search</button>
+    </form>
+      <div style={{fontFamily: "Aclonica", fontSize:"35px"}}>
+        <p> {outputURL1} </p>
+        <p> {outputURL2} </p>
+        <p> {outputURL3} </p>
+        <p> {outputURL4} </p>
+        <p> {outputURL5} </p>
+        <br/>
       </div>
   </div>
   );

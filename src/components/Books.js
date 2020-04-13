@@ -2,12 +2,6 @@ import React from "react"
 import SearchArea from "./SearchArea"
 import request from "superagent"
 import ListBooks from "./ListBooks"
-import Background from "../images/book.jpg"
-
-var sectionStyle = {
-  backgroundImage: `url(${Background})`,
-  backgroundSize: 'cover'
-};
 
 class Books extends React.Component{
 	constructor(props){
@@ -46,7 +40,7 @@ class Books extends React.Component{
 				book.volumeInfo['publishedDate'] = "0000";
 			}
 			else if(book.volumeInfo.hasOwnProperty('imageLinks') === false){
-				book.volumeInfo['imageLinks'] = {thumbnail: "https://lh3.googleusercontent.com/proxy/YuMna5FuwMKgyidZph7jluMRFvdpW_fh7kfTWtXX7zDDLTaV7wyP6QEvVTvJ6VogqYcNfkwT18m6yg54NQwJredcz3s_CeNc54a-XD_ceTTgfGm7y2G_1XvppcfojtVo"}
+				book.volumeInfo['imageLinks'] = {thumbnail: "https://img.icons8.com/ios/500/no-image.png"}
 			}
 
 			return book
@@ -66,7 +60,7 @@ class Books extends React.Component{
 			}
 		})
 		return(
-			<div style = { sectionStyle }>
+			<div>
 				<SearchArea bookSearch={this.bookSearch} sortHandle={this.sortHandle} searchHandle={this.searchHandle} />
 				<ListBooks books={booksSorted} />
 			</div>

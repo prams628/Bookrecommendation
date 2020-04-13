@@ -3,7 +3,8 @@ import BookCard from "./BookCard"
 
 const ListBooks = (props) => {
 	return(
-		<div className="lists">
+		<div style={{display: "grid", margin: "20px 0 50px 0",
+    gridTemplateColumns: 'repeat(4, 1fr)', gridAutoRows: '1fr', gridGap: '1em'}}>
 		{
 			props.books.map((book, index) => {
 

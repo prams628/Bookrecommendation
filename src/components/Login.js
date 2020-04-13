@@ -1,6 +1,43 @@
 import React, { Component } from 'react';
 import fire from '../Fire';
 
+var button1 = {
+  color: "white",
+  textTransform: 'uppercase',
+  textDecoration: 'none',
+  background: '#581845',
+  padding: '10px',
+  borderRadius: '5px',
+  display: 'inline-block',
+  border: 'none',
+  transition: "all 0.4s ease 0s",
+  fontFamily: "Acme",
+  paddingRight: "35px", 
+  paddingLeft: "35px",
+  fontSize: "30px"
+}
+
+var input1 = {
+  marginTop: "200px",
+  marginLeft: "250px",
+  width: "1000px",
+  border: "none",
+  borderBottom: "4px solid #581845",
+  fontFamily: "Acme",
+  fontSize: "30px"
+}
+
+var input2 = {
+  marginTop: "75px",
+  marginLeft: "250px",
+  width: "1000px",
+  border: "none",
+  borderBottom: "4px solid #581845",
+  fontFamily: "Acme",
+  fontSize: "30px"
+}
+
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -35,17 +72,18 @@ class Login extends Component {
   }
   render() {
     return (
-      <div className="col-md-6">
+      <div>
         <form>
-          <div className="form-group">
-            <input  value={this.state.email} onChange={this.handleChange} type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+          <div>
+            <input  style={input1} value={this.state.email} onChange={this.handleChange} type="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
           </div>
           <div className="form-group">
-            <input  value={this.state.password} onChange={this.handleChange} type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+            <input style={input2} value={this.state.password} onChange={this.handleChange} type="password" name="password" id="exampleInputPassword1" placeholder="Password" />
           </div>
-          <button type="submit" onClick={this.login} className="btn btn-primary">Login</button>
-          <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</button>
+          <div style={{width: "800px", marginLeft: '550px'}}>
+            <button style={button1} type="submit" onClick={this.login}>Login</button>
+            <button style={button1} onClick={this.signup}>Signup</button>
+          </div>
         </form>
       
       </div>
