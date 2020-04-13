@@ -35,7 +35,7 @@ var select = {
   fontSize: '25px',
   color: 'white',
   backgroundColor: '#581845',
-  borderRadius: "5px"
+  borderRadius: "5px",
 }
 
 const SearchArea = (props) => {	

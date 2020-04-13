@@ -4,7 +4,6 @@ import numpy as np
 class Graph(object):
     def __init__(self, reads):
         """
-
         """
         # Edges in our graph
         self.reads = reads
@@ -47,7 +46,6 @@ class Graph(object):
         recommended that is not based on a User. Simply input a book,
         go up the Author tree, and then find a random user, and their
         unpopular book.
-
         This is quicker, in theory, for testing out the predictions, as you
         don't have to build a User + Read objects for the Graph.
         """
@@ -150,7 +148,6 @@ class Graph(object):
         Our main class to find three unpopular books. Relies on two helper classes:
             _find_a_book: Grabs a rare books from a neighbor that reads similar books to you
             _find_a_user: Finds the neighbor to a book from your collection!
-
         If you enable two_hop = True in your calls, it can help preserve the privacy of your users,
             as you really start to jump around the graph. Want more privacy? Enable more random jumps.
         """
@@ -163,7 +160,6 @@ class Graph(object):
             """
             try:
                 _book = self._find_a_book(input_User, debug)
-
                 if _book != None:
                     RareBooks.append(_book)
             except Exception as e:
@@ -187,9 +183,10 @@ class User(object):
         self.author_list = [] # Authors read
 
 class Book(object):
-    def __init__(self, book_id, original_title, Author, ratings_5, popularity, image_url):
+    def __init__(self, book_id, original_title, isbn, Author, ratings_5, popularity, image_url):
         self.book_id = book_id
         self.title = original_title
+        self.isbn = isbn
         self.author = Author
         self.author_id = Author.author_id
         self.ratings_5 = ratings_5 # Number of people that rated the book a 5
@@ -236,9 +233,9 @@ def BuildGraph():
     `uir` : user,item,rating data
     `books`: meta information about each of the items (# of ratings, Author, etc.)
     """
-    uir = pd.read_csv("data/goodbooks-10k-master/ratings.csv")
+    uir = pd.read_csv("api/data/goodbooks-10k-master/ratings.csv")
 
-    books = pd.read_csv("data/goodbooks-10k-master/books.csv")
+    books = pd.read_csv("api/data/goodbooks-10k-master/books.csv")
     books = books[(books["language_code"] == "eng") | (books["language_code"] == "en-US")]
     books["author_id"] = (books["authors"].astype("category")).cat.codes # Gives us an index
 
@@ -246,16 +243,16 @@ def BuildGraph():
     Let's build a few versions of popularity: overall ratings, text review counts, and
     fraction of all people that rated this book with 5-stars.
     """
-    books["popularity_ratings"] = books["ratings_count"]/np.sum(books["ratings_count"])
-    books["popularity_text_reviews"] = books["work_text_reviews_count"]/np.sum(books["work_text_reviews_count"])
-    books["popularity_ratings5" ]= books["ratings_5"]/np.sum(books["ratings_5"])
+    books["popularity_ratings"] = np.array(books["ratings_count"])/np.sum(books["ratings_count"])
+    books["popularity_text_reviews"] = np.array(books["work_text_reviews_count"])/np.sum(books["work_text_reviews_count"])
+    books["popularity_ratings5" ]= np.array(books["ratings_5"])/np.sum(books["ratings_5"])
 
     """
     Join these two dataframes together:
     1) This filters out non-English books
     2) Gives us book info as well as the Author
     """
-    uir = pd.merge(uir, books[["book_id", "original_title",
+    uir = pd.merge(uir, books[["book_id", "original_title", "isbn",
                                "author_id","popularity_ratings","ratings_5", "image_url"]], on=["book_id"])
 
     """
@@ -268,7 +265,6 @@ def BuildGraph():
 
     """
     Now we can do the same for the users:
-
     """
     unique_users = uir[["user_id"]].drop_duplicates()
     unique_users["User"] = [User(uid) for uid in unique_users["user_id"]]
@@ -286,23 +282,19 @@ def BuildGraph():
     save our unique_users and unique_authors dataframes as Dictionaries,
     then just call them whenever needed. I think for our relatively small
     dataset, we could just join them to our original dataframe:
-
       `uir = pd.merge(uir, unique_users, on=["user_id"])`
       `uir = pd.merge(uir, unique_authors, on=["author_id"])`
-
     and then process the Books inline with a list comprehension:
-
       `uir["Book"] = [Book(bid, aid, rat, pop , url) for bid, aid, rat, pop , url
                  in uir[["book_id","Author","ratings_5","popularity_ratings","image_url"]].values]`
-
     But I don't want to be too lazy here, so we will use the dictionary route:
     """
 
-    unique_books = uir[["book_id", "original_title", "author_id", "ratings_5", "popularity_ratings",
+    unique_books = uir[["book_id", "original_title", "isbn", "author_id", "ratings_5", "popularity_ratings",
                         "image_url"]].drop_duplicates()
-    unique_books["Book"] = [Book(bid, ot, author_dict[aid]["Author"], rat, pop, url) for bid, ot, aid, rat, pop, url
+    unique_books["Book"] = [Book(bid, ot, isbn, author_dict[aid]["Author"], rat, pop, url) for bid, ot, isbn, aid, rat, pop, url
                             in unique_books[
-                                ["book_id", "original_title", "author_id", "ratings_5", "popularity_ratings", "image_url"]].values]
+                                ["book_id", "original_title", "isbn", "author_id", "ratings_5", "popularity_ratings", "image_url"]].values]
 
     # Now that we have our Book objects, let's build it into a dictionary
     _unique_books = unique_books.set_index("book_id", drop=True)
@@ -327,7 +319,6 @@ def BuildGraph():
     We can finally build our graph by assembling
     our collection of Read() objects and passing the
     list to our Graph: `Read(user, book1, author1) : `
-
     """
 
     read_list = [Read(user_dict[u]["User"], book_dict[b]["Book"], author_dict[a]["Author"], rating=int(r))

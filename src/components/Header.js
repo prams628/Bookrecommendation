@@ -32,7 +32,7 @@ class Header extends React.Component{
 					<nav className="navbar navbar-inverse">
 					  <div className="container-fluid">
 					    <div className="navbar-header">
-					      <a className="navbar-brand" style={styleSection} href="#">Boogle</a>
+					      <p className="navbar-brand" style={styleSection}>Boogle</p>
 					    </div>
 						    <ul style={styleSection1} className="nav navbar-nav navbar-right">
 						      <li><Link style={{color: "#C70039"}} to="/recommendation"><span className="glyphicon glyphicon-book"></span> Recommendations</Link></li>

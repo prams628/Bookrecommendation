@@ -3,7 +3,6 @@ import logo from './logo.svg'
 import './App.css'
 import Header from "./components/Header"
 import fire from "./Fire"
-import Login from "./components/Login"
 import Rss from "./components/Rss"
 
 class App extends React.Component {
@@ -40,11 +39,12 @@ class App extends React.Component {
 	    		{this.state.user ? (
 	    			<div>
 	    				<Header />
-	    				<Rss />
 	    			</div>
 	    		) :
 	    		(
-	    			<Login />
+	    			<div>
+		    			<Rss />
+		    		</div>
 	    		)}
 	    	</div>
 	  	)

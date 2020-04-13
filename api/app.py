@@ -35,8 +35,10 @@ def input_book():
 
         # Set the global url to be the large version of the input url
         global output_URL, seperator
+        output_URL = ""
+        titles = []
         for i in book_list:
-            titles.append(i.title)
+            titles.append(i.title + "," + i.isbn)
         output_URL = ";".join(titles)
         # Return the image URL to be displayed on our app
         #    NB: POST does not support anything else.
