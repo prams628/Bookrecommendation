@@ -37,7 +37,7 @@ class Header extends React.Component{
 						    <ul style={styleSection1} className="nav navbar-nav navbar-right">
 						      <li><Link onclick = {window.location.search = "", window.location.hash = "#hello"} style={{color: "#C70039"}} to="/recommendation"><span className="glyphicon glyphicon-book"></span> Recommendations</Link></li>
 						      <li><Link style={{color: "#C70039"}} to="/books"><span className="glyphicon glyphicon-search"></span> Books</Link></li>
-						      <li><a style={{color: "#C70039"}} href="#" onClick={this.logout}><span className="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+						      <li><a style={{color: "#C70039"}} href="hello" onClick={this.logout}><span className="glyphicon glyphicon-log-out"></span> Log Out</a></li>
 						    </ul>
 					  </div>
 					</nav>
