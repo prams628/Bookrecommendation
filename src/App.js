@@ -43,7 +43,7 @@ class App extends React.Component {
 	    		) :
 	    		(
 	    			<div>
-		    			<Login />
+		    			<Rss />
 		    		</div>
 	    		)}
 	    	</div>
