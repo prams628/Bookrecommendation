@@ -38,7 +38,7 @@ def input_book():
         output_URL = ""
         titles = []
         for i in book_list:
-            titles.append(i.title + "," + i.isbn)
+            titles.append(str(i.title) + "," + str(i.isbn))
         output_URL = ";".join(titles)
         # Return the image URL to be displayed on our app
         #    NB: POST does not support anything else.
