@@ -20,33 +20,35 @@ seperator = ";"
 
 @main.route('/input_book', methods=['POST'])
 def input_book():
-    # We get a request from our React App
     logger.debug("Starting service")
     _book = request.get_json()
-    # We extract the title from our JSON
+    # Extract the title from our JSON
     _book_title = str(_book["title"])
     logger.debug("book: ", _book_title)
-    # We use our dictionary to pull out a book Object
+    # The dictionary created during graph construction and the object for the book is created.
+    # It is this object that is passed to the function and NOT the string.
     try:
         _book_object = titles_dict[_book_title.lower()]["Book"]
         logger.debug(_book_object)
-        # Grab the first set of entries, return it
+        # The parameter N below specifies the number of books to be fetched.
         book_list = BigGraph.book2book(_book_object, N=5)
 
-        # Set the global url to be the large version of the input url
+        # Here we are trying to capture all of the books recommended through the graph into a string.
+        # Every individual book will be of the format "bookName,isbn"
+        # Every "book" entity is separated by a ";" as "book1;book2"
+        # The same pattern is used in the js file to retrieve the details
         global output_URL, seperator
         output_URL = ""
         titles = []
         for i in book_list:
             titles.append(str(i.title) + "," + str(i.isbn))
         output_URL = ";".join(titles)
-        # Return the image URL to be displayed on our app
-        #    NB: POST does not support anything else.
         return "Done", 201
     except Exception as e:
         logger.warning("Encountered exception: ", e)
         return "Error", 400
 
+# This function actually returns the list of books to the react.
 @main.route('/novel_novel', methods=['GET'])
 def novel_novel():
     logger.debug("GET method returning output_url")
