@@ -82,6 +82,9 @@ class Read(object):
 def BuildGraph():
     uir = pd.read_csv("api/data/goodbooks-10k-master/ratings.csv")
     books = pd.read_csv("api/data/goodbooks-10k-master/books.csv")
+
+    # Drop nan values from the "title" column in books.csv
+    books = books[books['original_title'].notnull()]
     
     books = books[(books["language_code"] == "eng") | (books["language_code"] == "en-US")]
     books["author_id"] = (books["authors"].astype("category")).cat.codes # Gives us an index
